@@ -10,6 +10,10 @@ type Graph struct {
 	Edges []*Edge
 }
 
+func NewGraph() *Graph {
+	return &Graph{}
+}
+
 // Add a node
 func (g *Graph) AddNode(attributes *Attributes) *Graph {
 	n := Node{nil, nil, attributes}
@@ -36,20 +40,38 @@ func (g *Graph) GetRandomEdge() *Edge {
 	return g.Edges[rand.Intn(len(g.Edges))]
 }
 
-func (g *Graph) Display() {
-	fmt.Println("Nodes:")
-	for _, v := range g.Nodes {
-		fmt.Println("--------", &v, "--------")
-		fmt.Println("Inputs: ", v.Inputs)
-		fmt.Println("Outputs: ", v.Outputs)
-		fmt.Println("Attributes: ", v.Attributes)
-		fmt.Println("-------------------------")
+func (g Graph) String() string {
+
+	numberOfNode := fmt.Sprintf("%d", len(g.Nodes)-1)
+	numberOfLeadingZeros := len(numberOfNode)
+	leadingZeroCode := fmt.Sprintf("0%d", numberOfLeadingZeros)
+	s := fmt.Sprintf("%*s|", numberOfLeadingZeros+1, "")
+	for i := range g.Nodes {
+		s += fmt.Sprintf("%"+leadingZeroCode+"d|", i)
 	}
-	fmt.Println("Edges:")
-	for _, v := range g.Edges {
-		fmt.Println("")
-		fmt.Println(&v.From, "----->", &v.To)
-		fmt.Println("Attributes: ", v.Attributes)
-		fmt.Println("")
+	s += fmt.Sprintln()
+	for i, n1 := range g.Nodes {
+		s += fmt.Sprintf("%"+leadingZeroCode+"d ", i)
+		for j, n2 := range g.Nodes {
+			if j <= i {
+				// if i is linked to j
+				isOutput := n1.isOutputOf(n2) >= 0
+				isInput := n1.isInputOf(n2) >= 0
+
+				if isInput && isOutput && i == j {
+					s += fmt.Sprintf("|🔃%*s", numberOfLeadingZeros-1, "")
+				} else if isInput && isOutput {
+					s += fmt.Sprintf("|↔%*s", numberOfLeadingZeros-1, "")
+				} else if isInput {
+					s += fmt.Sprintf("|⬆️%*s", numberOfLeadingZeros-1, "")
+				} else if isOutput {
+					s += fmt.Sprintf("|⬅️%*s", numberOfLeadingZeros-1, "")
+				} else {
+					s += fmt.Sprintf("|%*s", numberOfLeadingZeros, "")
+				}
+			}
+		}
+		s += fmt.Sprintln()
 	}
+	return s
 }

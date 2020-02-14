@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 
 	"github.com/LaurentChion/go-graph/core"
@@ -21,13 +22,15 @@ func putSomeRandomWeightOnEdge(g *core.Graph) {
 }
 
 func main() {
-	// generate a graph
-	g := generator.RandomGraphGenerator(10, 10)
+	// generate a graph of n node and n(n-1) edge
+	n := 50
+	g := generator.RandomGraphGenerator(n, n*(n-1))
 
 	// add some label on it
 	putSomeIdOnNode(g)
 	putSomeRandomWeightOnEdge(g)
 
 	// show the network
-	g.Display()
+	fmt.Println("The network")
+	fmt.Println(g)
 }
