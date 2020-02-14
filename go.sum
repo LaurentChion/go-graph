@@ -1,1 +1,2 @@
-github.com/LaurentChion/go-graph v0.0.0-20200207154240-9f0c60795068 h1:pDZptZ1edTbgOyjqD1ZAVGkrtpLm+4URJhFKT0BvN/Y=
+github.com/LaurentChion/go-graph/src/implementations/list v0.0.0-20200210193939-37341162c9b6/go.mod h1:kKOytFdib7dYfEedi9QIPPyQ6eShOJSFObIz1exjBwg=
+github.com/LaurentChion/go-graph/src/interfaces v0.0.0-20200210193939-37341162c9b6/go.mod h1:/bFQickF+A7nNeeZDsp+gGFLCl7O34MJhjT0Kx9D7+0=
