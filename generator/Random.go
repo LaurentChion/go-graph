@@ -1,24 +1,22 @@
 package generator
 
 import (
-	"fmt"
-
 	"github.com/LaurentChion/go-graph/core"
 )
 
-func RandomGraphGenerator(numberOfNode int, numberOfEdges int) core.Graph {
+func RandomGraphGenerator(numberOfNode int, numberOfEdges int) *core.Graph {
 	g := core.Graph{}
 
-	for i := range make([]int, numberOfNode) {
-		g.AddNode([]core.Attribute{
-			core.Attribute{"id", fmt.Sprintf("%d", i)},
-		})
+	for range make([]int, numberOfNode) {
+		a := core.NewAttributes()
+		g.AddNode(a) // no default attributes
 	}
 
 	for range make([]int, numberOfEdges) {
+		a := core.NewAttributes()
 		n1 := g.GetRandomNode()
 		n2 := g.GetRandomNode()
-		g.AddEdge(n1, n2, nil)
+		g.AddEdge(n1, n2, a) // no default attributes
 	}
-	return g
+	return &g
 }
